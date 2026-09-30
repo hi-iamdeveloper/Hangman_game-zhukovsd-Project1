@@ -3,15 +3,17 @@
 void main() {
 
     Scanner scanner = new Scanner(System.in);
+    WordProvider provider = new WordProvider("words.txt");
+    HangmanGame game = new HangmanGame();
 
     System.out.println("Добро пожаловать в игру!");
 
-    printMenu(scanner);
+    printMenu(scanner, game);
 
 
 }
 
-void printMenu(Scanner scanner) {
+void printMenu(Scanner scanner, HangmanGame game) {
 
     int parsedInput;
 
@@ -26,7 +28,7 @@ void printMenu(Scanner scanner) {
             parsedInput = Integer.parseInt(input);
             switch (parsedInput) {
                 case 1:
-                    ;
+
                 case 2:
                     return;
                 default:
