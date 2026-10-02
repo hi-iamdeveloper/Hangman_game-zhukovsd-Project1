@@ -12,16 +12,14 @@ void main() {
         return;
     }
 
-    HangmanGame game = new HangmanGame();
-
     System.out.println("Добро пожаловать в игру!");
 
-    printMenu(scanner, game, provider);
+    printMenu(scanner, provider);
 
 
 }
 
-void printMenu(Scanner scanner, HangmanGame game, WordProvider provider) {
+void printMenu(Scanner scanner, WordProvider provider) {
 
     int parsedInput;
 
@@ -36,6 +34,7 @@ void printMenu(Scanner scanner, HangmanGame game, WordProvider provider) {
             parsedInput = Integer.parseInt(input);
             switch (parsedInput) {
                 case 1:
+                    HangmanGame game = new HangmanGame();
                     game.startGame(scanner, provider.getWord());
                 case 2:
                     return;
