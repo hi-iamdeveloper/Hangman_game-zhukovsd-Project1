@@ -1,7 +1,3 @@
-import javax.rmi.ssl.SslRMIClientSocketFactory;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.*;
 
 public class HangmanGame {
@@ -14,24 +10,34 @@ public class HangmanGame {
 
         for (int i = 5; i > 0; i--) {
 
-            letterCheck(scanner);
+            System.out.println("Осталось попыток: " + i);
+            char letter = inputAndletterCheck(scanner, usedLetters);
 
         }
 
     }
 
-    void letterCheck(Scanner scanner) {
+    char inputAndletterCheck(Scanner scanner, Set<Character> usedLetters) {
 
         while (true) {
             System.out.println("Введите букву");
             String input = scanner.nextLine();
-            if (input.isEmpty()) {
-                System.out.println("Строка не может быть пустой!");
-            } else if (input.length() != 1) {
-                System.out.println("Вводите по одному символу за раз");
-            } else if (letterUsed()) {
+            if (input.length() == 1) {
 
+                char letter = input.charAt(0);
+                letter = Character.toLowerCase(letter);
+
+                if (!Character.isLetter(letter)) {
+                    System.out.println("Введите букву, а не цифру или символ!");
+                    continue;
+                }
+                if (letterUsed(usedLetters, letter)) {
+                    return letter;
+                }
+            } else {
+                System.out.println("Некоректный ввод! Вводите по одной букве за раз!");
             }
+
         }
     }
 
