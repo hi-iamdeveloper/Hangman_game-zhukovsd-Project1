@@ -2,6 +2,8 @@ import java.util.*;
 
 public class HangmanGame {
 
+    final static int ATTEMPTS = 8;
+
     void startGame(Scanner scanner, String word) {
 
         Set<Character> usedLetters = new HashSet<>();
@@ -10,18 +12,28 @@ public class HangmanGame {
         когда ко мне в голову пришла подобная реализация, я почуствовал себя g / chad и уже не мог
         от нее отказатся pogChamp #петпроектырулят #хочуврек
         */
+        int tries = 0;
 
         System.out.println("Игра запущена! Слово состоит из " + word.length());
         System.out.println(hiddenLetters);
 
-        for (int i = 5; i > 0; i--) {
+        while (tries < ATTEMPTS) {
 
-            System.out.println("Осталось попыток: " + i);
+            System.out.println("Осталось попыток: " + (ATTEMPTS - tries));
             char letter = inputAndletterCheck(scanner, usedLetters);
-            checkLetter(letter, word, hiddenLetters);
+            boolean check = checkLetter(letter, word, hiddenLetters);
+            if (!check) {
+                tries++;
+            }
             System.out.println(hiddenLetters);
 
+            if (isWin(hiddenLetters)) {
+                System.out.println("Поздравляю, вы победили! Слово: " + word);
+                return;
+            }
         }
+
+        System.out.println("Вы програли, слово было - " + word);
 
     }
 
@@ -39,6 +51,11 @@ public class HangmanGame {
                     System.out.println("Введите букву, а не цифру или символ!");
                     continue;
                 }
+
+                if (letter == 'ё') {
+                    letter = 'е';
+                }
+
                 if (letterUsed(usedLetters, letter)) {
                     return letter;
                 }
@@ -71,7 +88,7 @@ public class HangmanGame {
         return temp;
     }
 
-    void checkLetter(char letter, String word, char[] hiddenLetters) {
+    boolean checkLetter(char letter, String word, char[] hiddenLetters) {
         boolean contains = false;
 
         for (int i = 0; i < word.length(); i++) {
@@ -81,9 +98,18 @@ public class HangmanGame {
             }
         }
 
-        System.out.println(contains ? "Да, такая буква есть!" : "Нет, такой буквы не было");
+        if (contains) {
+            System.out.println("Да, такая буква есть!");
+            return true;
+        } else {
+            System.out.println("Нет, такой буквы нету");
+            return false;
+        }
     }
 
+    boolean isWin(char[] hiddenLetters) {
+        return new String(hiddenLetters).indexOf('_') == -1;
+    }
 
 
 }

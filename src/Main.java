@@ -7,7 +7,7 @@ void main() {
 
     try {
         provider = new WordProvider("src/words.txt");
-    } catch (IllegalStateException e) {
+    } catch (UncheckedIOException e) {
         System.err.println("Ошибка: " + e.getMessage());
         return;
     }
