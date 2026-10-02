@@ -3,47 +3,56 @@
 void main() {
 
     Scanner scanner = new Scanner(System.in);
-    WordProvider provider;
+    WordProvider provider = wordProviderInitialize("src/words.txt");
 
-    try {
-        provider = new WordProvider("src/words.txt");
-    } catch (UncheckedIOException e) {
-        System.err.println("Ошибка: " + e.getMessage());
-        return;
+    firstGreeting();
+
+    while (true) {
+
+        printMenu();
+        startGame(scanner, provider);
     }
-
-    System.out.println("Добро пожаловать в игру!");
-
-    printMenu(scanner, provider);
 
 
 }
 
-void printMenu(Scanner scanner, WordProvider provider) {
+void printMenu() {
 
-    int parsedInput;
-
-    while (true) {
         System.out.println("Выберите, что вы хотите сделать:");
         System.out.println("1 - начать игру");
         System.out.println("2 - выйти");
 
-        String input = scanner.nextLine();
+}
 
-        try {
-            parsedInput = Integer.parseInt(input);
-            switch (parsedInput) {
-                case 1:
-                    HangmanGame game = new HangmanGame();
-                    game.startGame(scanner, provider.getWord());
-                case 2:
-                    return;
-                default:
-                    System.out.println("Я не знаю такой команды!");
+void startGame(Scanner scanner, WordProvider provider) {
 
-            }
-        } catch (NumberFormatException e) {
-            System.out.println("Нужно вводить цифры!");
+    int parsedInput;
+
+    String input = scanner.nextLine();
+
+    try {
+        parsedInput = Integer.parseInt(input);
+        switch (parsedInput) {
+            case 1:
+                HangmanGame game = new HangmanGame();
+                game.startGame(scanner, provider.getWord());
+            case 2:
+                return;
+            default:
+                System.out.println("Я не знаю такой команды!");
+
         }
+    } catch (NumberFormatException e) {
+        System.out.println("Нужно вводить цифры!");
     }
+
+
+}
+
+void firstGreeting() {
+    System.out.println("Добро пожаловать в игру!");
+}
+
+WordProvider wordProviderInitialize(String path) {
+    return new WordProvider(path);
 }
