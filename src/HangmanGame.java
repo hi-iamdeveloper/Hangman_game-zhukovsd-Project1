@@ -2,7 +2,7 @@ import java.util.*;
 
 public class HangmanGame {
 
-    final static int ATTEMPTS = 8;
+    final static int ATTEMPTS = 6;
 
     void startGame(Scanner scanner, String word) {
 
@@ -24,6 +24,7 @@ public class HangmanGame {
             boolean check = checkLetter(letter, word, hiddenLetters);
             if (!check) {
                 tries++;
+                System.out.println(HangmanState.fromTries(tries));
             }
             System.out.println(hiddenLetters);
 

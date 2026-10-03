@@ -82,4 +82,21 @@ public enum HangmanState {
     HangmanState(String art) {
         this.art = art;
     }
+
+    public static HangmanState fromTries(int tries) {
+        return switch (tries) {
+            case 0 -> START;
+            case 1 -> HEAD;
+            case 2 -> BODY;
+            case 3 -> LEFT_ARM;
+            case 4 -> BOTH_ARMS;
+            case 5 -> LEFT_LEG;
+            default -> DEAD; // 6 и больше
+        };
+    }
+
+    @Override
+    public String toString() {
+        return art;
+    }
 }
